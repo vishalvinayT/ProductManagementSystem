@@ -15,14 +15,14 @@ import java.util.Map;
 
 public class Utilities {
     public static final Config config = ConfigFactory.parseFile(new File("scrapeConfig.json"));
-    protected static final String DEFAULT_COMPANY="Warehouse-56697368616c";
-    protected static final String DEFAULT_COUNTRY="Germany";
-    protected static final Double DEFAULT_PRICE=1.00;
-    protected static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    protected static final String DEFAULT_MFD_DATE= formatter.format(new Date());
-    protected static final String DEFAULT_IMAGE=ImageFactory.getImagePath("Default Image");
+    public static final String DEFAULT_COMPANY="Warehouse-56697368616c";
+    public static final String DEFAULT_COUNTRY="Germany";
+    public static final Double DEFAULT_PRICE=1.00;
+    public static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    public static final String DEFAULT_MFD_DATE= formatter.format(new Date());
+    public static final String DEFAULT_IMAGE=ImageFactory.getImagePath("Default Image");
 
-    protected static final String[] DEFAULT_ADDESS_FORMAT=new String[]{"company","street","pincode city","country"};
+    public static final String[] DEFAULT_ADDESS_FORMAT=new String[]{"company","street","pincode city","country"};
 
     private static Map<String,String> filterKeys=new HashMap<>();
 

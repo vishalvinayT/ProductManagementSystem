@@ -1,8 +1,8 @@
 package dataextractor;
-;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.typesafe.config.Config;
+import dbtables.ProductData;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class DataInjector {
     private static List<ProductData> productDataList= new LinkedList<>();
-    public static void URLData(){
+    public void URLData(){
         Config config=Utilities.config;
         String URl1=config.getString("URL");
         try {
@@ -51,13 +51,13 @@ public class DataInjector {
                 }
             }
             exposeJsonObject(productDataList);
-            System.out.println("Done....");
+              System.out.println("Done....");
         }catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    private static void addProductData(Elements productClass,DataExtractor extractor,int index) throws IOException{
+    private void addProductData(Elements productClass,DataExtractor extractor,int index) throws IOException{
         String href=productClass.get(index).getAllElements().attr("href");
         ProductData productData=extractor.extractedProductData(href);
         if(productData!=null){
@@ -66,7 +66,7 @@ public class DataInjector {
 
     }
 
-    private static void injectImages(Elements fromCLass, String tagName, boolean savefig) throws IOException {
+    private void injectImages(Elements fromCLass, String tagName, boolean savefig) throws IOException {
         if(fromCLass!=null && tagName!=null ){
             for (Element imageElement: fromCLass){
                 Elements htmlImages= imageElement.getElementsByTag(tagName);
@@ -87,13 +87,12 @@ public class DataInjector {
     }
 
 
-    private static void exposeJsonObject(List<ProductData> productDataList) throws IOException{
+    private void exposeJsonObject(List<ProductData> productDataList) throws IOException{
         BufferedWriter file= new BufferedWriter(new FileWriter("./output_data.json"));
         Gson gson=new GsonBuilder().setPrettyPrinting().create();
         gson.toJson(productDataList,file);
         file.flush();
         file.close();
-
     }
 
 }

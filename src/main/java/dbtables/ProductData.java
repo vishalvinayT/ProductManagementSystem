@@ -1,7 +1,9 @@
-package dataextractor;
+package dbtables;
+
+import dataextractor.Utilities;
 
 public class ProductData {
-    public String company=Utilities.DEFAULT_COMPANY; //Notnull
+    public String company= Utilities.DEFAULT_COMPANY; //Notnull
     public String country=Utilities.DEFAULT_COUNTRY;//Notnull
     public String street=null;
     public String city=null;
