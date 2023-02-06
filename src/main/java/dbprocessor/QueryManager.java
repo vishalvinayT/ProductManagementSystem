@@ -11,7 +11,7 @@ import java.util.List;
 public class QueryManager extends QueryBuilder{
 
     private Config config= ConfigFactory.parseFile(new File("./dbConfig.json"));
-    private static Connection connection;
+    public static Connection connection;
     private final String DRIVER=config.getString("driver");
     private final String HOST= config.getString("host");
     private final String PORT=config.getString("port");
@@ -31,9 +31,13 @@ public class QueryManager extends QueryBuilder{
 
     private PreparedStatement insertShipments;
 
-    public void connect(){
+    public QueryManager(){
+        connect();
+    }
+
+    private void connect(){
         try {
-            Class.forName(String.format("com.%s.cj.jdbc.Driver",DRIVER));
+            Class.forName(String.format("com.%s.cj.jdbc.Driver",DRIVER)); // note
             String connectionUrl=String.format("jdbc:%s://%s:%s/%s?verifyServerCertificate=false&useSSL=false",DRIVER,HOST,PORT,DB);
             connection= DriverManager.getConnection(connectionUrl,USERNAME,DEADBEEF);
             insertProducts=connection.prepareStatement(PRODUCTS_INSERT);
@@ -73,9 +77,9 @@ public class QueryManager extends QueryBuilder{
             statement.setString(1,productData.company);
             Integer warehouseId=getWarehouseID(wareHouseData);
             ResultSet set=statement.executeQuery();
-            Integer companyID=set.getInt(1);
+            Integer companyID=set.next()!=false? set.getInt(1):null;
             if(companyID==null){
-                companyID=generateUniqueId(productData.company);
+                companyID=generateUniqueId("company_"+productData.company);
                 Object[] companyData=new Object[]{companyID,warehouseId,productData.company,productData.street,productData.city,productData.pincode,productData.country};
                 insertData(insertCompanies,companyData);
             }
@@ -88,8 +92,9 @@ public class QueryManager extends QueryBuilder{
     private Integer getWarehouseID(WareHouseData wareHouseData) throws SQLException{
         if(wareHouseData!=null){
             PreparedStatement statement=connection.prepareStatement("select id from warehouses where warehouseName=?");
+            statement.setString(1,wareHouseData.warehouseName);
             ResultSet set=statement.executeQuery();
-            Integer warehouseID=set.getInt(1);
+            Integer warehouseID=set.next()!=false? set.getInt(1):null;
             if(warehouseID==null){
                 warehouseID=generateUniqueId(wareHouseData.warehouseName);
                 Object[] warehouse=new Object[]{warehouseID,wareHouseData.warehouseName,wareHouseData.city,wareHouseData.country};

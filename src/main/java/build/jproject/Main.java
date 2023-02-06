@@ -1,6 +1,11 @@
 package build.jproject;
+import dataextractor.DataExtractor;
 import dataextractor.DataInjector;
+import dbprocessor.DataProcessor;
 import dbprocessor.QueryManager;
+
+import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class Main {
@@ -8,7 +13,15 @@ public class Main {
 
 //        DataInjector injector= new DataInjector();
 //        injector.URLData();
-        QueryManager manager=new QueryManager();
-        manager.connect();
+        try {
+            DataProcessor processor=new DataProcessor();
+            processor.executeInsertProductData();
+        }catch (IOException e){
+            System.out.println("Error Occurred");
+        }catch (SQLException f){
+            System.out.println("SQL Error");
+            f.printStackTrace();
+        }
+
     }
 }

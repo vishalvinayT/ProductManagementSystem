@@ -16,6 +16,8 @@ public class ProductData {
     public Double productPrice=Utilities.DEFAULT_PRICE; //Notnull
     public String productImage=Utilities.DEFAULT_IMAGE; //Notnull
 
+    public ProductData(){}
+
     public ProductData(String company, String country, String street,String city, String pincode,String productName,String productInformation, String mfdate,String expdate, Integer quantity, Double productPrice, String productImage){
         this.company=company;
         this.country=country;
