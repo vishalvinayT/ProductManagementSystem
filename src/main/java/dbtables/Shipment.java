@@ -9,4 +9,14 @@ public class Shipment {
     public String dateOfOrder;//Not Null
     public Double pricePerUnit;//Not Null
     public Double totalPrice;// Not Null
+
+
+    public Shipment(Integer productId, Integer userID, Integer quantityOrdered,String dateOfOrder, Double pricePerUnit, Double totalPrice ){
+        this.productId=productId;
+        this.userID=userID;
+        this.quantityOrdered=quantityOrdered;
+        this.dateOfOrder=dateOfOrder;
+        this.pricePerUnit=pricePerUnit;
+        this.totalPrice=totalPrice;
+    }
 }
