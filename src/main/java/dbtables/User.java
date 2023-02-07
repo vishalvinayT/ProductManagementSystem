@@ -8,7 +8,7 @@ public class User {
     public String street; // Not NUll
     public String pincode;//Not NUll
 
-
+    public User(){}
     public User(String name, String email, String phone, String country, String street, String pincode){
         this.name=name;
         this.email=email;

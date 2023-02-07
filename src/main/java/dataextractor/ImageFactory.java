@@ -16,7 +16,7 @@ public class ImageFactory {
     private static final String DEFAULT_DESTINATION="."+ File.separator +"resources";
     private static final String DEFAULT_IMAGE="Default Image";
     private static final String DEFAULT_IMAGE_EXTENSION=".png";
-    private static final String DefaultImagePath=DEFAULT_DESTINATION+File.separator+DEFAULT_IMAGE+File.separator+DEFAULT_IMAGE_EXTENSION;
+    private static final String DefaultImagePath=DEFAULT_DESTINATION+File.separator+DEFAULT_IMAGE+DEFAULT_IMAGE_EXTENSION;
 
     static{
         putDefaultImage();

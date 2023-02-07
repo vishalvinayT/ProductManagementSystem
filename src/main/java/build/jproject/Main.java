@@ -18,6 +18,7 @@ public class Main {
             processor.executeInsertProductData();
         }catch (IOException e){
             System.out.println("Error Occurred");
+            e.printStackTrace();
         }catch (SQLException f){
             System.out.println("SQL Error");
             f.printStackTrace();

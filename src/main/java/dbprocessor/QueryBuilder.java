@@ -7,7 +7,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 public abstract class QueryBuilder {
-    protected final String PRODUCTS_INSERT="insert into products values(?,?,?,?,?,?,?,?,File_read(?))";
+
+    protected final String PRODUCTS_INSERT="insert into products values(?,?,?,?,?,?,?,?,?)";
     protected final String COMPANIES_INSERT="insert into companies values(?,?,?,?,?,?,?)";
     protected final String WAREHOUSE_INSERT="insert into warehouses values(?,?,?,?)";
     protected final String USERS_INSERT="insert into users values(?,?,?,?,?,?,?)";
@@ -22,5 +23,4 @@ public abstract class QueryBuilder {
             statement.executeUpdate();
         }
     }
-
 }

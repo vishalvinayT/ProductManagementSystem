@@ -10,7 +10,7 @@ public class Shipment {
     public Double pricePerUnit;//Not Null
     public Double totalPrice;// Not Null
 
-
+    public Shipment(){}
     public Shipment(Integer productId, Integer userID, Integer quantityOrdered,String dateOfOrder, Double pricePerUnit, Double totalPrice ){
         this.productId=productId;
         this.userID=userID;

@@ -19,7 +19,7 @@ public class Utilities {
     public static final String DEFAULT_COUNTRY="Germany";
     public static final Double DEFAULT_PRICE=1.00;
     public static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    public static final String DEFAULT_MFD_DATE= formatter.format(new Date());
+    public static final String DEFAULT_MFD_DATE= formatter.format(new Date()); // returns current date
     public static final String DEFAULT_IMAGE=ImageFactory.getImagePath("Default Image");
 
     public static final String[] DEFAULT_ADDESS_FORMAT=new String[]{"company","street","pincode city","country"};
