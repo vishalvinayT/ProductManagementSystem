@@ -1,0 +1,14 @@
+dbtables\ProductData.class
+dataextractor\ImageFactory.class
+dbprocessor\DataProcessor.class
+dataextractor\Utilities.class
+dbprocessor\QueryManager.class
+build\jproject\Main.class
+dbtables\User.class
+dataextractor\DataInjector.class
+dbprocessor\QueryBuilder.class
+UI.class
+dbtables\Shipment.class
+dataextractor\DataExtractor.class
+dbtables\Order.class
+dbtables\WareHouseData.class
