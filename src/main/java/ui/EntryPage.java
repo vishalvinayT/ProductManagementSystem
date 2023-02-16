@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class EntryPage extends ScreenStage{
 
-    private JButton submitButton =new JButton("Login");
+    private JButton loginButton =new JButton("Login");
     private JButton registerButton =new JButton("Register");
 
     private JTextField username=new JTextField();
@@ -19,63 +19,48 @@ public class EntryPage extends ScreenStage{
     @Override
     public void init(){
         setEntryPage();
-    }
-
-    private void setEntryPage(){
-        entryFrame.setLayout(new BorderLayout());
-        Insets headingSpace= new Insets(5,20,5,20);
-        Insets textSpace = new Insets(5,20,15,20);
-        Insets buttonSpace=new Insets(5,0,5,0);
-        String loginText="Login";
-        JPanel panel=new JPanel();
-        JLabel label= new JLabel(loginText);
-        label.setFont(new Font("Serif-Fonts",Font.ITALIC,24));
-        JLabel usernameText= new JLabel("Username");
-        panel.setLayout(new GridBagLayout());
-        //label.setPreferredSize(new Dimension(100,50));
-        usernameText.setFont(new Font("Serif-Fonts", Font.ITALIC,14));
-        username.setPreferredSize(new Dimension(300,30));
-
-
-        GridBagConstraints  input=new GridBagConstraints();
-        input.anchor=GridBagConstraints.CENTER;
-        input.gridy=1;
-        input.insets=headingSpace;
-        panel.add(label,input);
-
-        input.gridy=2;
-        input.anchor=GridBagConstraints.WEST;
-        input.insets=headingSpace;
-        panel.add(usernameText, input);
-
-        input.gridy=3;
-        input.anchor=GridBagConstraints.CENTER;
-        input.insets= textSpace;
-        panel.add(username, input);
-
-        input.gridy=4;
-        input.gridx=0;
-        input.anchor=GridBagConstraints.CENTER;
-        input.insets=buttonSpace;
-        panel.add(submitButton, input);
-
-        input.gridy=5;
-        input.gridx=0;
-        input.anchor=GridBagConstraints.CENTER;
-        input.insets=buttonSpace;
-        panel.setBackground(getBackground());
-        panel.add(registerButton, input);
 
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                entryFrame.dispose();
                 RegistrationPage registrationPage=new RegistrationPage();
                 registrationPage.init();
             }
         });
+    }
+
+    @Override
+    public JPanel headPanel(){
+        return new JPanel();
+    }
+
+    private void setEntryPage(){
+        entryFrame.setLayout(new BorderLayout());
+
+        String loginText="Login";
+        JPanel panel=new JPanel();
+        JLabel label= new JLabel(loginText);
+        label.setFont(subheadingFont);
+        JLabel usernameText= new JLabel("Username");
+        panel.setLayout(new GridBagLayout());
+        //label.setPreferredSize(new Dimension(100,50));
+        usernameText.setFont(labelFont);
+        username.setPreferredSize(textBoxDimension);
+
+
+        GridBagConstraints  input=new GridBagConstraints();
+        panel.add(label,formatGrid(input,0,1,headingSpace,GridBagConstraints.CENTER));
+        panel.add(usernameText,formatGrid(input,0,2,headingSpace,GridBagConstraints.WEST));
+        panel.add(username,formatGrid(input,0,3,boxSpace,GridBagConstraints.CENTER));
+        panel.add(loginButton,formatGrid(input,0,4,buttonSpace,GridBagConstraints.CENTER));
+        panel.add(registerButton,formatGrid(input,0,5,buttonSpace,GridBagConstraints.CENTER));
+
+        panel.setBackground(getBackground());
+
 
         registerButton.setFocusable(false);
-        submitButton.setFocusable(false);
+        loginButton.setFocusable(false);
 
 
 

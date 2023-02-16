@@ -12,6 +12,7 @@ public class Main  {
         //injector.URLData();
 //        try {
 //            DataProcessor processor=new DataProcessor();
+//              processor.read();
 //            processor.executeInsertProductData();
 //        }catch (Exception e) {
 //            System.out.println("Error Occurred");

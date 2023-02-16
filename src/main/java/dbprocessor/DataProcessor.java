@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -20,6 +22,8 @@ public class DataProcessor {
     private ProductData[] productDataArr;
     private QueryManager queryManager= new QueryManager();
 
+    private boolean dataRead= false;
+
 
     //note the below code
 
@@ -29,7 +33,9 @@ public class DataProcessor {
              and the productName in products table is altered to varchar(1000)
 
      */
-    public DataProcessor() throws IOException {
+
+
+    public void read() throws IOException{
         JsonParser parser=new JsonParser();
         String json =parser.parse(new BufferedReader(new FileReader("output_data.json"))).toString();
         JsonObject jsonObject = parserJson.fromJson(json, JsonObject.class);
@@ -37,10 +43,14 @@ public class DataProcessor {
         JsonArray jsonArray = jsonObject.getAsJsonArray(PRODUCTDATA_KEY);
         productDataArr = parserJson.fromJson(jsonArray, ProductData[].class);
         wareHouseData=parserJson.fromJson(warehouseObject, WareHouseData.class);
+        this.dataRead=true;
     }
 
     public void executeInsertProductData() throws SQLException, FileNotFoundException {
-        if(queryManager.connection!=null && wareHouseData!=null && productDataArr!=null){
+        if(!dataRead){
+            System.out.println("Please Read Data");
+        }
+        else if(queryManager.connection!=null && wareHouseData!=null && productDataArr!=null ){
             int count=0;
             for(ProductData productData:productDataArr){
                 Integer high=500;
@@ -51,6 +61,11 @@ public class DataProcessor {
             }
             System.out.printf("Inserted %d Records",count);
         }
+    }
+
+    public List<ProductData> fetchProductData(){
+        List<ProductData> productDataList= new LinkedList<>();
+        return productDataList;
     }
 
 }
