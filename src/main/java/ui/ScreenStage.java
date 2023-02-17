@@ -20,6 +20,8 @@ public abstract class ScreenStage  {
     protected Font headingFont= new Font("Serif-Fonts", Font.ITALIC,32);
     protected  Font subheadingFont= new Font("Serif-Fonts", Font.ITALIC,24);
     protected  Font labelFont= new Font("Serif-Fonts", Font.ITALIC,14);
+    protected Font errorFont =new Font("Serif-Fonts", Font.ITALIC,48);
+
 
     protected final String TITLE="MiniMart";
     public void setStage(JFrame frame){
@@ -38,7 +40,42 @@ public abstract class ScreenStage  {
 
     public abstract void init();
 
-    public abstract JPanel headPanel();
+    public JPanel headPanel(AddEnum ignoreCase, JButton back,JButton cart){
+        //fixme: adding head panel code can be improved and remove the code repetitions in future
+
+        JPanel main= new JPanel();
+        JLabel heading=new JLabel(TITLE);
+        main.setBackground(getBackground());
+        main.setLayout(new BorderLayout());
+        heading.setFont(headingFont);
+        heading.setHorizontalAlignment(SwingConstants.CENTER); // note
+        main.add(heading,BorderLayout.CENTER);
+        switch (ignoreCase){
+            case ADD_ALL:
+                if(cart!=null && back!=null){
+                    main.add(back,BorderLayout.WEST);
+                    main.add(cart,BorderLayout.EAST);
+                    back.setFocusable(false);
+                    cart.setFocusable(false);
+                }
+                break;
+            case ADD_BACK:
+                if(back!=null){
+                    main.add(back,BorderLayout.WEST);
+                    back.setFocusable(false);
+                }
+                break;
+            case ADD_CART:
+                if(cart!=null){
+                    cart.setFocusable(false);
+                    main.add(cart,BorderLayout.EAST);
+                }
+                break;
+
+        }
+        return main;
+    }
+
 
 
     //note
@@ -57,13 +94,6 @@ public abstract class ScreenStage  {
 
     }
 
-    protected void addItem(Object item, JPanel panel){
-        if(item!=null && panel!=null){
-            JPanel spanel= new JPanel();
-            spanel.setLayout(new BorderLayout());
-            spanel.add((Component) item, BorderLayout.CENTER);
-            panel.add(spanel);
-        }
-    }
+
 
 }

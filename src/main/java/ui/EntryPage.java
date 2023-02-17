@@ -30,10 +30,7 @@ public class EntryPage extends ScreenStage{
         });
     }
 
-    @Override
-    public JPanel headPanel(){
-        return new JPanel();
-    }
+
 
     private void setEntryPage(){
         entryFrame.setLayout(new BorderLayout());
@@ -49,6 +46,7 @@ public class EntryPage extends ScreenStage{
         username.setPreferredSize(textBoxDimension);
 
 
+        //note this
         GridBagConstraints  input=new GridBagConstraints();
         panel.add(label,formatGrid(input,0,1,headingSpace,GridBagConstraints.CENTER));
         panel.add(usernameText,formatGrid(input,0,2,headingSpace,GridBagConstraints.WEST));
@@ -62,8 +60,8 @@ public class EntryPage extends ScreenStage{
         registerButton.setFocusable(false);
         loginButton.setFocusable(false);
 
-
-
+        //fixme: improve the header code
+        entryFrame.add(headPanel(AddEnum.ADD_HEADING,null,null),BorderLayout.NORTH);
         entryFrame.add(panel, BorderLayout.CENTER);
         entryFrame.setVisible(true);
     }

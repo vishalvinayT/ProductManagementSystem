@@ -16,9 +16,10 @@ public class RegistrationPage extends ScreenStage {
     private JTextField streetBox=new JTextField();
     private JTextField pincodeBox=new JTextField();
 
+    private final JButton back= new JButton("Back");
+
     @Override
     public void init(){
-
         setRegistrationPage();
         submitButton.addActionListener(new ActionListener() {
             @Override
@@ -30,11 +31,7 @@ public class RegistrationPage extends ScreenStage {
         });
     }
 
-    @Override
-    public JPanel headPanel(){
-        return new JPanel();
 
-    }
 
     private void setRegistrationPage(){
         resetFrame(registrationPage);
@@ -76,6 +73,8 @@ public class RegistrationPage extends ScreenStage {
         panel.add(pincodeBox,formatGrid(input,0,12,boxSpace,GridBagConstraints.CENTER));
         panel.add(submitButton,formatGrid(input,0,13,buttonSpace,GridBagConstraints.CENTER));
         submitButton.setFocusable(false);
+        //fixme: improve the header code
+        registrationPage.add(headPanel(AddEnum.ADD_BACK,back, null),BorderLayout.NORTH);
         registrationPage.add(panel);
         registrationPage.setVisible(true);
 

@@ -65,7 +65,7 @@ public class DataProcessor {
 
     public List<ProductData> fetchProductData(){
         List<ProductData> productDataList= new LinkedList<>();
-        return productDataList;
+        return null;
     }
 
 }
