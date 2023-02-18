@@ -179,14 +179,15 @@ public class QueryManager extends QueryBuilder{
 
         ResultSet productSet=extractData(extractProductData);
         while(productSet.next()){
-            ProductData productData= new ProductData(productSet.getInt("id"), productSet.getInt("company_id"),productSet.getInt("warehouse_id"),productSet.getString("companyName"),productSet.getString("country"),
-                    productSet.getString("street"),productSet.getString("city"),productSet.getString("pincode"),
-                    productSet.getString("productName"),productSet.getString("description"),
-                    strCoverter(productSet.getDate("mfd_date").toString()),strCoverter(productSet.getDate("exp_date")) ,
+            ProductData productData= new ProductData(productSet.getInt("id"), productSet.getInt("company_id"),productSet.getInt("warehouse_id"),strCoverter(productSet.getString("companyName")),strCoverter(productSet.getString("country")),
+                    strCoverter(productSet.getString("street")),strCoverter(productSet.getString("city")),strCoverter(productSet.getString("pincode")),
+                    strCoverter(productSet.getString("productName")),strCoverter(productSet.getString("description")),
+                    strCoverter(productSet.getDate("mfd_date")),strCoverter(productSet.getDate("exp_date")) ,
                     productSet.getInt("quantity"),productSet.getDouble("price"), processBlob( productSet.getBlob("productImage")));
             productsList.add(productData);
+
         }
-        throw new NullPointerException();
+
     }
 
 
