@@ -1,9 +1,7 @@
 package dbprocessor;
 
-import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 public abstract class QueryBuilder {
@@ -15,6 +13,10 @@ public abstract class QueryBuilder {
     protected final String SHIPMENTS_INSERT="insert into shipments values(?,?,?,?,?,?,?,?)";
     protected final String ORDERS_INSERT="insert into orders values(?,?,?,?)";
 
+    protected  final String PRODUCTS_EXTRACT="select p.id,p.company_id,p.productName,p.description,p.mfd_date," +
+            "p.exp_date, p.quantity, p.price, p.productImage, c.warehouse_id, c.companyName, c.street,"+
+            "c.city, c.pincode, c.country from products p join companies c where p.company_id=c.id";
+
     protected void insertData(PreparedStatement statement, Object[] objectData) throws SQLException {
         if(objectData!=null){
             for(int i=1;i<=objectData.length;i++){
@@ -22,5 +24,9 @@ public abstract class QueryBuilder {
             }
             statement.executeUpdate();
         }
+    }
+
+    protected ResultSet extractData(PreparedStatement statement) throws SQLException{
+        return statement.executeQuery();
     }
 }

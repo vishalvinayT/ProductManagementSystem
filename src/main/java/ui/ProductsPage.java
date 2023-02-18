@@ -6,20 +6,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ProductsPage extends ScreenStage {
     private JFrame productsFrame= new JFrame();
     private DataProcessor processor= new DataProcessor();
-    List<String> productsList;
+    List<ProductData> productsList;
     private final JButton back= new JButton("Back");
     private final JButton cart= new JButton("Cart");
     private  boolean error=false;
     @Override
     public void init(){
-        productsList= Arrays.asList(new String[]{"a","b","c","d","e"});
-        this.error=productsList==null;
+        productsList= processor.fetchProductData();
+        //this.error=productsList==null;
+
         setProductsPage();
         cart.addActionListener(new ActionListener() {
             @Override
@@ -53,7 +56,7 @@ public class ProductsPage extends ScreenStage {
             for(int i=0;i<rows;i++){
                 for(int j=0;j<cols;j++){
                     JPanel subPanel= new JPanel();
-                    JButton button= new JButton(productsList.get(counter));
+                    JButton button= new JButton();
                     subPanel.setLayout(new GridBagLayout());
                     GridBagConstraints c= new GridBagConstraints();
                     c.gridx=0;

@@ -28,7 +28,7 @@ public class DataProcessor {
     //note the below code
 
     /*fixme: the productImage column is manually altered to longblob
-             and the product description is altered to varchar(35000)
+             and the product description is altered to varchar(35000) // magicNumbes
              and the companyName in companies table is altered to varachar(1000)
              and the productName in products table is altered to varchar(1000)
 
@@ -53,7 +53,7 @@ public class DataProcessor {
         else if(queryManager.connection!=null && wareHouseData!=null && productDataArr!=null ){
             int count=0;
             for(ProductData productData:productDataArr){
-                Integer high=500;
+                Integer high=500; // magicNumbers: these high and low values are used for deciding the sample quantity
                 Integer low=50;
                 productData.quantity=productData.quantity!=null? productData.quantity : new Random().nextInt(high-low)+low;
                 queryManager.insertProductData(wareHouseData,productData);
@@ -64,8 +64,14 @@ public class DataProcessor {
     }
 
     public List<ProductData> fetchProductData(){
-        List<ProductData> productDataList= new LinkedList<>();
-        return null;
+        try {
+            List<ProductData> productDataList= new LinkedList<>();
+            queryManager.setProductData(productDataList);
+            return productDataList;
+        }catch (SQLException e){
+            return null;
+        }
+
     }
 
 }
