@@ -5,6 +5,8 @@ import dbtables.ProductData;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -18,6 +20,8 @@ public class ProductPage extends  ScreenStage{
 
     private JButton add= new JButton("Add");
     private JButton remove= new JButton("Remove");
+
+    private JButton quantityButton= new JButton();
     private Integer productQuantity= 0;
 
     public ProductPage(ProductData productData){
@@ -27,6 +31,36 @@ public class ProductPage extends  ScreenStage{
     public void init() {
         try {
             setProductPage();
+            add.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            remove.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            add.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    cartList.add(productData);
+                    productQuantity+=1;
+                    refreshButton(quantityButton);
+                }
+            });
+
+            remove.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(productQuantity>0){
+                        cartList.remove(productData);
+                        productQuantity-=1;
+                        refreshButton(quantityButton);
+                    }
+                }
+            });
+
+            back.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    productFrame.dispose();
+                    ShopPage shopPage=new ShopPage();
+                    shopPage.init();
+                }
+            });
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -58,10 +92,8 @@ public class ProductPage extends  ScreenStage{
         JLabel productPrice=new JLabel("€"+productData.productPrice);
         productPrice.setFont(subheadingFont);
         add_component(psubPanel,productPrice,0,1,3,1,GridBagConstraints.WEST);
-        JButton quantityButton= new JButton();
         buttonTransparent(quantityButton);
-        String buttonText=productQuantity>0 ? ""+productQuantity:"";
-        quantityButton.setText(buttonText);
+        refreshButton(quantityButton);
         buttonTransparent(add);
         buttonTransparent(remove);
         JPanel buttonPanel=new JPanel();
@@ -71,6 +103,11 @@ public class ProductPage extends  ScreenStage{
         add_component(buttonPanel,remove,2,0,1,1,GridBagConstraints.EAST);
         add_component(psubPanel,buttonPanel,0,2,3,1,GridBagConstraints.WEST);
         return psubPanel;
+    }
+
+    private void refreshButton(JButton button){
+        String buttonText=productQuantity>0 ? ""+productQuantity:"";
+        button.setText(buttonText);
     }
 
     private JPanel descriptionPanel(){

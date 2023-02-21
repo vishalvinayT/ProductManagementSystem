@@ -24,7 +24,8 @@ public class ShopPage extends ScreenStage {
         productsList= processor.fetchProductData();
         //this.error=productsList==null;
         setProductsPage();
-
+        back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        cart.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         cart.addActionListener(new ActionListener() {
             @Override
@@ -32,6 +33,15 @@ public class ShopPage extends ScreenStage {
                 productsFrame.dispose();
                 CheckoutPage checkout= new CheckoutPage();
                 checkout.init();
+            }
+        });
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                productsFrame.dispose();
+                RegistrationPage registrationPage= new RegistrationPage();
+                registrationPage.init();
             }
         });
 
@@ -85,6 +95,7 @@ public class ShopPage extends ScreenStage {
                         c.anchor=GridBagConstraints.CENTER;
                         JButton name=new JButton(productData.productName);
                         buttonTransparent(name);
+                        name.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                         subPanel.add(name,c);
 
                         c.gridx=0;
@@ -99,8 +110,8 @@ public class ShopPage extends ScreenStage {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 productsFrame.dispose();
-                                  ProductPage productPage= new ProductPage(productData);
-                                  productPage.init();
+                                ProductPage productPage= new ProductPage(productData);
+                                productPage.init();
                             }
                         });
                         basePanel.add(subPanel,i,j);

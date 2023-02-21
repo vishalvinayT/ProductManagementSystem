@@ -19,6 +19,7 @@ public class EntryPage extends ScreenStage{
     @Override
     public void init(){
         setEntryPage();
+        registerButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         registerButton.addActionListener(new ActionListener() {
             @Override

@@ -19,12 +19,22 @@ public class RegistrationPage extends ScreenStage {
     @Override
     public void init(){
         setRegistrationPage();
+        submitButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 registrationPage.dispose();
                 ShopPage productsPage= new ShopPage();
                 productsPage.init();
+            }
+        });
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registrationPage.dispose();
+                EntryPage page=new EntryPage();
+                page.init();
             }
         });
     }
