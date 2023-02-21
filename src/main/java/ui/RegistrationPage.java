@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.jar.JarEntry;
 
 public class RegistrationPage extends ScreenStage {
     private JFrame registrationPage= new JFrame();
@@ -16,7 +15,6 @@ public class RegistrationPage extends ScreenStage {
     private JTextField streetBox=new JTextField();
     private JTextField pincodeBox=new JTextField();
 
-    private final JButton back= new JButton("Back");
 
     @Override
     public void init(){
@@ -25,7 +23,7 @@ public class RegistrationPage extends ScreenStage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 registrationPage.dispose();
-                ProductsPage productsPage= new ProductsPage();
+                ShopPage productsPage= new ShopPage();
                 productsPage.init();
             }
         });

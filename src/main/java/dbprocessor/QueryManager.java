@@ -185,9 +185,7 @@ public class QueryManager extends QueryBuilder{
                     strCoverter(productSet.getDate("mfd_date")),strCoverter(productSet.getDate("exp_date")) ,
                     productSet.getInt("quantity"),productSet.getDouble("price"), processBlob( productSet.getBlob("productImage")));
             productsList.add(productData);
-
         }
-
     }
 
 

@@ -1,13 +1,19 @@
 package ui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 
 public abstract class ScreenStage  {
     private  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     private final ImageIcon logo= new ImageIcon("./icons/logo.png");
+    protected final JButton back= new JButton("Back");
+    protected final JButton cart= new JButton("Cart");
     private Color defaultBackgroundColor= new Color(0xD2B1EA);
     protected  final int screenWidth = screenSize.width;
     protected final int screenHeight= screenSize.height;
@@ -90,8 +96,29 @@ public abstract class ScreenStage  {
     protected void resetFrame(JFrame frame){
         frame.setSize(screenWidth,screenHeight);
         frame.setIconImage(logo.getImage());
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setBackground(defaultBackgroundColor);
 
+    }
+
+    protected void buttonTransparent(JButton button){
+        button.setBorder(null);
+        button.setOpaque(false);
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+    }
+
+    protected String nullToStr(Object obj){
+        return obj!=null? obj.toString():"null";
+    }
+
+    protected BufferedImage readImage(byte[] imageArray) throws IOException {
+        if(imageArray!=null){
+            ByteArrayInputStream inputImage= new ByteArrayInputStream(imageArray); //note
+            BufferedImage img= ImageIO.read(inputImage);
+            return  img;
+        }
+        throw new NullPointerException();
     }
 
 
