@@ -21,6 +21,13 @@ public class EntryPage extends ScreenStage{
         setEntryPage();
         registerButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String user=username.getText();
+            }
+        });
+
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -30,7 +37,6 @@ public class EntryPage extends ScreenStage{
             }
         });
     }
-
 
 
     private void setEntryPage(){
