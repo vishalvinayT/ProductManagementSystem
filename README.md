@@ -12,14 +12,14 @@ and transform it into accessible json format and store the data into database an
 user-friendly UI where user can select wide range of products. Here, the registered user data 
 is stored in the DB and each transaction that user does is also updated to the DB.
 
-![Overview](./project_images/jproject_overview.png)  Fig 1. Project Structure
+![Overview](jproject_overview.png)  Fig 1. Project Structure
 
 
 ## Working
 1. Initially, I have extracted the various products data from the web from the input config using the 
 jsoup dependency and exposed the extracted data into the json file.
 
-![Output Json](./project_images/output_json.png)  Fig 2. Product Json
+![Output Json](output_json.png)  Fig 2. Product Json
 
 2. Secondly, I have inserted the data in the json to the database in respective tables
 
@@ -31,20 +31,20 @@ to the cart and checkout.
 
 The structure of the UI design as follows:
 3.1. Creation of Login Page:
-![Login Page](./project_images/login_ui.png)  Fig 3.1. UI Login Page 
+![Login Page](login_ui.png)  Fig 3.1. UI Login Page 
 
 3.2. If the user does not exist in the database then login page is 
 directed to registration page.
-![Registration Page](./project_images/registration_ui.png )  Fig 3.2. UI Registration Page 
+![Registration Page](registration_ui.png )  Fig 3.2. UI Registration Page 
 
 3.3. After user has successfully logged in then large variety of products
 are displayed and user can add the required products to the cart.
-![Products Display](./project_images/products_display.gif)  Fig 3.3. UI Products Display Page
+![Products Display](products_display.gif)  Fig 3.3. UI Products Display Page
 
 3.4. When user selects a particular product a dedicated product window pops
 up where user can find the detailed description of the product and can add
 required quantity to the cart.
-![Products Display](./project_images/product_info.png)  Fig 3.4. UI Product Information Page
+![Products Display](product_info.png)  Fig 3.4. UI Product Information Page
 
 3.5. After selection of the required products the user can check out by clicking
 the cart button where user can review the products selected and exit from the application
