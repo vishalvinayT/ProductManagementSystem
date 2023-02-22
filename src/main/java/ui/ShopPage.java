@@ -61,6 +61,7 @@ public class ShopPage extends ScreenStage {
             productsFrame.add(error);
         }else{
             JPanel basePanel= new JPanel();
+            basePanel.setBackground(getBackground());
             int cols=5;
             int rows=productsList.size()/cols;
             basePanel.setLayout(new GridLayout(rows,cols));
@@ -72,6 +73,7 @@ public class ShopPage extends ScreenStage {
                     try {
                         ProductData productData=productsList.get(counter);
                         JPanel subPanel= new JPanel();
+                        subPanel.setBackground(getBackground());
                         subPanel.setPreferredSize(new Dimension(screenWidth/6,screenHeight/4)); //magic numbers
                         subPanel.setLayout(new GridBagLayout());
                         GridBagConstraints c= new GridBagConstraints();

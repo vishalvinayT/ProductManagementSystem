@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,9 +17,8 @@ public class ProductPage extends  ScreenStage{
     private ProductData productData;
     private JFrame productFrame=new JFrame();
 
-    private JButton add= new JButton("Add");
-    private JButton remove= new JButton("Remove");
-
+    private JButton add= new JButton();
+    private JButton remove= new JButton();
     private JButton quantityButton= new JButton();
     private Integer productQuantity= 0;
 
@@ -72,6 +70,7 @@ public class ProductPage extends  ScreenStage{
         productFrame.setLayout(new BorderLayout());
         productFrame.add(headPanel(AddEnum.ADD_BACK, back, null),BorderLayout.NORTH);
         JPanel productPanel= new JPanel();
+        productPanel.setBackground(getBackground());
         productPanel.setLayout(new GridBagLayout());
         BufferedImage img= readImage(productData.productImageData);
         Image pic= img.getScaledInstance(screenWidth/5,screenHeight/2,Image.SCALE_DEFAULT);
@@ -85,6 +84,7 @@ public class ProductPage extends  ScreenStage{
 
     private JPanel introPanel(){
         JPanel psubPanel=new JPanel();
+        psubPanel.setBackground(getBackground());
         psubPanel.setLayout(new GridBagLayout());
         JLabel productName=new JLabel(productData.productName);
         productName.setFont(subheadingFont);
@@ -97,7 +97,15 @@ public class ProductPage extends  ScreenStage{
         buttonTransparent(add);
         buttonTransparent(remove);
         JPanel buttonPanel=new JPanel();
+        buttonPanel.setBackground(getBackground());
         buttonPanel.setLayout(new GridBagLayout());
+        ImageIcon addIcon= new ImageIcon("./icons/add.png");
+        ImageIcon removeIcon= new ImageIcon("./icons/substract.png");
+        Image addImg=addIcon.getImage().getScaledInstance(addIcon.getIconWidth()/5,addIcon.getIconHeight()/5,Image.SCALE_SMOOTH);
+        Image removeImg=removeIcon.getImage().getScaledInstance(addIcon.getIconWidth()/5,addIcon.getIconHeight()/5,Image.SCALE_SMOOTH);
+        add.setIcon(new ImageIcon(addImg));
+        remove.setIcon(new ImageIcon(removeImg));
+        quantityButton.setPreferredSize(new Dimension(addImg.getWidth(null),removeImg.getHeight(null)));
         add_component(buttonPanel,add,0,0,1,1,GridBagConstraints.WEST);
         add_component(buttonPanel,quantityButton,1,0,1,1,GridBagConstraints.CENTER);
         add_component(buttonPanel,remove,2,0,1,1,GridBagConstraints.EAST);
@@ -113,11 +121,12 @@ public class ProductPage extends  ScreenStage{
     private JPanel descriptionPanel(){
         Map<Object,Object> infoMap= new HashMap<>();
         JPanel desPanel=new JPanel();
+        desPanel.setBackground(getBackground());
         desPanel.setLayout(new GridBagLayout());
         JLabel desHeading= new JLabel("Product Description");
         desHeading.setFont(subheadingFont);
-
         JPanel infoTable=new JPanel();
+        infoTable.setBackground(getBackground());
         infoTable.setLayout(new GridBagLayout());
         infoMap.put("Product Information:", productData.productInformation);
         infoMap.put("Manufacturing Date:", productData.mfdate);
@@ -130,38 +139,20 @@ public class ProductPage extends  ScreenStage{
         for (Map.Entry<Object,Object> vals: infoMap.entrySet()){
             JLabel name=new JLabel(nullToStr(vals.getKey()));
             String valueString=nullToStr(vals.getValue());
-            JPanel valuePanel=processLargeText(valueString);
-            add_component(infoTable,name,0,row,1,1,GridBagConstraints.WEST);
-            add_component(infoTable,valuePanel,1,row,1,1,GridBagConstraints.WEST);
+            JTextArea valueText=new JTextArea();
+            valueText.setText(valueString);
+            valueText.setLineWrap(true);
+            valueText.setWrapStyleWord(true);
+            valueText.setSize(new Dimension(screenWidth/2,1));
+            valueText.setBackground(getBackground());
+            add_component(infoTable,name,0,row,1,1,GridBagConstraints.NORTHWEST);
+            add_component(infoTable,valueText,1,row,1,1,GridBagConstraints.NORTHWEST);
             row++;
         }
-
         add_component(desPanel,desHeading,0,0,1,1,GridBagConstraints.WEST);
         add_component(desPanel,infoTable,0,1,1,1,GridBagConstraints.WEST);
         return desPanel;
     }
-
-
-
-
-
-    private JPanel processLargeText(String value){
-        JPanel panel = new JPanel(new GridLayout(0,1));
-        if(value!=null){
-            String[] valueArr;
-            if(value.length()>150){ //magic number
-                valueArr=value.split("\\.");
-            }else{
-                valueArr=new String[]{value};
-            }
-            for(String val:valueArr){
-             JLabel label= new JLabel(val);
-             panel.add(label);
-            }
-        }
-        return panel;
-    }
-
 
 
     private void add_component(JPanel panel, Component component, int x , int y, int width, int height, int anchor){

@@ -18,7 +18,7 @@ public abstract class ScreenStage  {
     private final ImageIcon logo= new ImageIcon("./icons/logo.png");
     protected final JButton back= new JButton("Back");
     protected final JButton cart= new JButton("Cart");
-    private Color defaultBackgroundColor= new Color(0xD2B1EA);
+    private Color defaultBackgroundColor= new Color(0xCCED00);
     protected  final int screenWidth = screenSize.width;
     protected final int screenHeight= screenSize.height;
     protected Insets headingSpace= new Insets(5,20,5,20);
@@ -27,7 +27,7 @@ public abstract class ScreenStage  {
     protected  Dimension textBoxDimension= new Dimension(300,30);
 
 
-    protected Font headingFont= new Font("Serif-Fonts", Font.ITALIC,32);
+    protected Font headingFont= new Font("Serif-Fonts", Font.ITALIC,36);
     protected  Font subheadingFont= new Font("Serif-Fonts", Font.ITALIC,24);
     protected  Font labelFont= new Font("Serif-Fonts", Font.ITALIC,14);
     protected Font errorFont =new Font("Serif-Fonts", Font.ITALIC,48);
