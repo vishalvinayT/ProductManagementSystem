@@ -32,8 +32,7 @@ public class CheckoutPage extends ScreenStage{
         address.add(userStreet);
         address.add(userCountry);
         address.add(userPhone);
-
-
+        //testing
 
         checkoutFrame.setVisible(true);
 
