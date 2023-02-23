@@ -51,8 +51,6 @@ public class EntryPage extends ScreenStage{
         //label.setPreferredSize(new Dimension(100,50));
         usernameText.setFont(labelFont);
         username.setPreferredSize(textBoxDimension);
-
-
         //note this
         GridBagConstraints  input=new GridBagConstraints();
         panel.add(label,formatGrid(input,0,1,headingSpace,GridBagConstraints.CENTER));
@@ -60,10 +58,7 @@ public class EntryPage extends ScreenStage{
         panel.add(username,formatGrid(input,0,3,boxSpace,GridBagConstraints.CENTER));
         panel.add(loginButton,formatGrid(input,0,4,buttonSpace,GridBagConstraints.CENTER));
         panel.add(registerButton,formatGrid(input,0,5,buttonSpace,GridBagConstraints.CENTER));
-
         panel.setBackground(getBackground());
-
-
         registerButton.setFocusable(false);
         loginButton.setFocusable(false);
 

@@ -55,10 +55,7 @@ public class ShopPage extends ScreenStage {
         //fixme: adding head panel code can be improved
         productsFrame.add(headPanel(AddEnum.ADD_ALL, back,  cart),BorderLayout.NORTH);
         if(error){
-            JLabel error= new JLabel("!!! Oops No Product Data To Display");
-            error.setFont(errorFont);
-            error.setHorizontalAlignment(SwingConstants.CENTER);
-            productsFrame.add(error);
+            productsFrame.add(errorPanel());
         }else{
             JPanel basePanel= new JPanel();
             basePanel.setBackground(getBackground());

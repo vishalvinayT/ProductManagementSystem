@@ -155,15 +155,6 @@ public class ProductPage extends  ScreenStage{
     }
 
 
-    private void add_component(JPanel panel, Component component, int x , int y, int width, int height, int anchor){
-        GridBagConstraints constraints= new GridBagConstraints();
-        constraints.gridy=y;
-        constraints.gridx=x;
-        constraints.weightx=width;
-        constraints.weighty=height;
-        constraints.anchor=anchor;
-        panel.add(component,constraints);
-    }
 
 
 }

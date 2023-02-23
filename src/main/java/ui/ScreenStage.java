@@ -1,6 +1,7 @@
 package ui;
 
 import dbtables.ProductData;
+import dbtables.User;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -31,8 +32,7 @@ public abstract class ScreenStage  {
     protected  Font subheadingFont= new Font("Serif-Fonts", Font.ITALIC,24);
     protected  Font labelFont= new Font("Serif-Fonts", Font.ITALIC,14);
     protected Font errorFont =new Font("Serif-Fonts", Font.ITALIC,48);
-
-
+    protected User user;
     public List<ProductData> cartList=new LinkedList<>();
 
 
@@ -99,13 +99,28 @@ public abstract class ScreenStage  {
         input.anchor=side;
         return input;
     }
-
+    protected void add_component(JPanel panel, Component component, int x , int y, int width, int height, int anchor){
+        GridBagConstraints constraints= new GridBagConstraints();
+        constraints.gridy=y;
+        constraints.gridx=x;
+        constraints.weightx=width;
+        constraints.weighty=height;
+        constraints.anchor=anchor;
+        panel.add(component,constraints);
+    }
     protected void resetFrame(JFrame frame){
         frame.setSize(screenWidth,screenHeight);
         frame.setIconImage(logo.getImage());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setBackground(defaultBackgroundColor);
 
+    }
+
+    protected JLabel errorPanel(){
+        JLabel error= new JLabel("!!! Oops No Data To Display");
+        error.setFont(errorFont);
+        error.setHorizontalAlignment(SwingConstants.CENTER);
+        return error;
     }
 
     protected void buttonTransparent(JButton button){

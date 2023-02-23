@@ -47,7 +47,6 @@ public class RegistrationPage extends ScreenStage {
         JPanel panel= new JPanel();
         panel.setLayout(new GridBagLayout());
         panel.setBackground(getBackground());
-
         JLabel usernameLabel= new JLabel("Username");
         JLabel emailLabel= new JLabel("Email");
         JLabel phoneLabel= new JLabel("Phone");
