@@ -1,4 +1,4 @@
-# GroceryDeliverySystem
+# ProductManagementSystem
 The Project is done to strengthen the understanding of programming 
 concepts but also build real-time application maintenance that can 
 revolutionize the world! That's precisely what this project aims to 
