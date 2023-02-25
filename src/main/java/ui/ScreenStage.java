@@ -9,8 +9,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 public abstract class ScreenStage  {
@@ -32,8 +34,8 @@ public abstract class ScreenStage  {
     protected  Font subheadingFont= new Font("Serif-Fonts", Font.ITALIC,24);
     protected  Font labelFont= new Font("Serif-Fonts", Font.ITALIC,14);
     protected Font errorFont =new Font("Serif-Fonts", Font.ITALIC,48);
-    protected User user;
-    public List<ProductData> cartList=new LinkedList<>();
+    protected User user=UI.user;
+    protected Map<ProductData, Integer> cartList=UI.cartList;
 
 
     protected final String TITLE="MiniMart";

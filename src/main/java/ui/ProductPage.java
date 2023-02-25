@@ -22,6 +22,7 @@ public class ProductPage extends  ScreenStage{
     private JButton quantityButton= new JButton();
     private Integer productQuantity= 0;
 
+    //fixme: check for out of stock
     public ProductPage(ProductData productData){
         this.productData=productData;
     }
@@ -34,8 +35,8 @@ public class ProductPage extends  ScreenStage{
             add.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    cartList.add(productData);
                     productQuantity+=1;
+                    cartList.put(productData,productQuantity);
                     refreshButton(quantityButton);
                 }
             });
@@ -44,10 +45,19 @@ public class ProductPage extends  ScreenStage{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if(productQuantity>0){
-                        cartList.remove(productData);
                         productQuantity-=1;
+                        cartList.put(productData,productQuantity);
                         refreshButton(quantityButton);
                     }
+                }
+            });
+
+            cart.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    productFrame.dispose();
+                    CheckoutPage checkoutPage=new CheckoutPage();
+                    checkoutPage.init();
                 }
             });
 
@@ -60,7 +70,7 @@ public class ProductPage extends  ScreenStage{
                 }
             });
         }catch (IOException e){
-            e.printStackTrace();
+            productFrame.add(errorPanel());
         }
 
     }
@@ -68,7 +78,7 @@ public class ProductPage extends  ScreenStage{
     private void setProductPage() throws IOException {
         resetFrame(productFrame);
         productFrame.setLayout(new BorderLayout());
-        productFrame.add(headPanel(AddEnum.ADD_BACK, back, null),BorderLayout.NORTH);
+        productFrame.add(headPanel(AddEnum.ADD_ALL, back, cart),BorderLayout.NORTH);
         JPanel productPanel= new JPanel();
         productPanel.setBackground(getBackground());
         productPanel.setLayout(new GridBagLayout());
@@ -101,6 +111,7 @@ public class ProductPage extends  ScreenStage{
         buttonPanel.setLayout(new GridBagLayout());
         ImageIcon addIcon= new ImageIcon("./icons/add.png");
         ImageIcon removeIcon= new ImageIcon("./icons/substract.png");
+        // note
         Image addImg=addIcon.getImage().getScaledInstance(addIcon.getIconWidth()/5,addIcon.getIconHeight()/5,Image.SCALE_SMOOTH);
         Image removeImg=removeIcon.getImage().getScaledInstance(addIcon.getIconWidth()/5,addIcon.getIconHeight()/5,Image.SCALE_SMOOTH);
         add.setIcon(new ImageIcon(addImg));
@@ -140,6 +151,7 @@ public class ProductPage extends  ScreenStage{
             JLabel name=new JLabel(nullToStr(vals.getKey()));
             String valueString=nullToStr(vals.getValue());
             JTextArea valueText=new JTextArea();
+            //note below
             valueText.setText(valueString);
             valueText.setLineWrap(true);
             valueText.setWrapStyleWord(true);
@@ -153,8 +165,5 @@ public class ProductPage extends  ScreenStage{
         add_component(desPanel,infoTable,0,1,1,1,GridBagConstraints.WEST);
         return desPanel;
     }
-
-
-
 
 }
