@@ -22,14 +22,13 @@ public class FinalPage extends  ScreenStage{
         finalPanel.setLayout(new BoxLayout(finalPanel,BoxLayout.X_AXIS));
         ImageIcon successIcon= new ImageIcon("./icons/success.png");
         Image successImg= successIcon.getImage().getScaledInstance(successIcon.getIconWidth()/4,successIcon.getIconHeight()/4,Image.SCALE_SMOOTH);
-        JLabel succesLabel= new JLabel("Thank you for using the Application");
+        JLabel successLabel= new JLabel("Thank you for using the Application");
         JLabel successImgLabel=new JLabel(new ImageIcon(successImg));
-        succesLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        successLabel.setHorizontalAlignment(SwingConstants.CENTER);
         successImgLabel.setHorizontalAlignment(SwingConstants.CENTER);
         finalPanel.add(successImgLabel);
-        finalPanel.add(succesLabel);
-
-        succesLabel.setFont(subheadingFont);
+        finalPanel.add(successLabel);
+        successLabel.setFont(subheadingFont);
         finalFrame.add(finalPanel,BorderLayout.CENTER);
     }
 }

@@ -1,6 +1,7 @@
 package dbtables;
 
 public class User {
+    public Integer id;
     public String name; //Not NUll
     public String email; // Not Null
     public String phone=null;
@@ -9,7 +10,8 @@ public class User {
     public String pincode;//Not NUll
 
     public User(){}
-    public User(String name, String email, String phone, String country, String street, String pincode){
+    public User(Integer id ,String name, String email, String phone, String country, String street, String pincode){
+        this.id=id;
         this.name=name;
         this.email=email;
         this.phone=phone;

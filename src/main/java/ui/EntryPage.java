@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class EntryPage extends ScreenStage{
 
@@ -20,11 +21,21 @@ public class EntryPage extends ScreenStage{
     public void init(){
         setEntryPage();
         registerButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
 
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String user=username.getText();
+                try {
+                    processor.checkUser(user);
+                }catch (NullPointerException ne){
+                    entryFrame.add(errorPanel());
+                }catch (SQLException se){
+
+                }
+
             }
         });
 

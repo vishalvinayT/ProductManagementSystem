@@ -1,5 +1,6 @@
 package ui;
 
+import dbprocessor.DataProcessor;
 import dbtables.ProductData;
 import dbtables.User;
 
@@ -22,6 +23,8 @@ public abstract class ScreenStage  {
     protected final JButton back= new JButton("Back");
     protected final JButton cart= new JButton("Cart");
     private Color defaultBackgroundColor= new Color(0xCCED00);
+
+    protected DataProcessor processor= new DataProcessor();
     protected  final int screenWidth = screenSize.width;
     protected final int screenHeight= screenSize.height;
     protected Insets headingSpace= new Insets(5,20,5,20);

@@ -13,6 +13,10 @@ public abstract class QueryBuilder {
     protected final String SHIPMENTS_INSERT="insert into shipments values(?,?,?,?,?,?,?,?)";
     protected final String ORDERS_INSERT="insert into orders values(?,?,?,?)";
 
+    protected final String USER_EXTRACT="select * from users where email=? or name=? ";
+    //protected final String USERNAME_EXTRACT="select id from users where name=?";
+    //protected final String USEREMAIL_EXTRACT="select id from users where email=?";
+
     protected  final String PRODUCTS_EXTRACT="select p.id,p.company_id,p.productName,p.description,p.mfd_date," +
             "p.exp_date, p.quantity, p.price, p.productImage, c.warehouse_id, c.companyName, c.street,"+
             "c.city, c.pincode, c.country from products p join companies c where p.company_id=c.id";

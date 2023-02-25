@@ -2,6 +2,7 @@ package dbprocessor;
 
 import com.google.gson.*;
 import dbtables.ProductData;
+import dbtables.User;
 import dbtables.WareHouseData;
 
 import java.io.BufferedReader;
@@ -61,6 +62,15 @@ public class DataProcessor {
             }
             System.out.printf("Inserted %d Records",count);
         }
+    }
+
+    public User checkUser(String user) throws SQLException {
+        if(user!=null){
+            User extractedUser= queryManager.extractUSer(user);
+            return extractedUser;
+        }
+        throw new NullPointerException();
+
     }
 
     public List<ProductData> fetchProductData(){

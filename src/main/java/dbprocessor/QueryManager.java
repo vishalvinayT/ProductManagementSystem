@@ -38,6 +38,8 @@ public class QueryManager extends QueryBuilder{
     private PreparedStatement insertShipments;
 
     private PreparedStatement extractProductData;
+    private PreparedStatement extractUserData;
+
 
     public QueryManager(){
         connect();
@@ -55,6 +57,9 @@ public class QueryManager extends QueryBuilder{
             insertOrders=connection.prepareStatement(ORDERS_INSERT);
             insertShipments=connection.prepareStatement(SHIPMENTS_INSERT);
             extractProductData=connection.prepareStatement(PRODUCTS_EXTRACT);
+            extractUserData=connection.prepareStatement(USER_EXTRACT);
+            /*extractUsername=connection.prepareStatement(USERNAME_EXTRACT);
+            extractUserEmail=connection.prepareStatement(USEREMAIL_EXTRACT);*/
             System.out.println();
         }catch (SQLException e){
             e.printStackTrace();
@@ -172,6 +177,18 @@ public class QueryManager extends QueryBuilder{
             throw new RuntimeException();
 
         }
+    }
+    protected User extractUSer(String user) throws SQLException{
+        extractUserData.setString(1,user);
+        extractUserData.setString(2,user);
+        ResultSet set=extractData(extractUserData);
+        if(set.next()){
+            return new User(set.getInt("id"),strCoverter(set.getString("name")),
+                    strCoverter(set.getString("email")),strCoverter(set.getString("phone")),
+                    strCoverter(set.getString("country")),strCoverter(set.getString("street")),
+                    set.getString("pincode"));
+        }
+        return null;
     }
 
     protected void setProductData(List<ProductData> productsList) throws  SQLException{

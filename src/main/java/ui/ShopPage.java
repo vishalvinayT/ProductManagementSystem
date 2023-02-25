@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ShopPage extends ScreenStage {
     private JFrame productsFrame= new JFrame();
-    private DataProcessor processor= new DataProcessor();
+
     List<ProductData> productsList;
 
     private  boolean error=false;
