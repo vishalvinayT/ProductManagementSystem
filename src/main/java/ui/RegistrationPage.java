@@ -1,9 +1,12 @@
 package ui;
 
+import dbtables.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class RegistrationPage extends ScreenStage {
     private JFrame registrationPage= new JFrame();
@@ -23,9 +26,40 @@ public class RegistrationPage extends ScreenStage {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                registrationPage.dispose();
-                ShopPage productsPage= new ShopPage();
-                productsPage.init();
+                String userName=checkField(usernameBox.getText(),"Username");
+                String email=checkField(emailBox.getText(),"Email");
+                String phone= checkField(phoneBox.getText(),"Phone");
+                String country=checkField(countryBox.getText(),"Country");
+                String street= checkField(streetBox.getText(),"Street");
+                String pincode=checkField(pincodeBox.getText(),"Pincode");
+                if(userName!=null && email!=null && phone!=null && country!=null && street!=null && pincode!=null){
+                    try {
+                        User checkUser=processor.checkUser(email);
+                        if(checkUser!=null){
+                            JOptionPane.showMessageDialog(null,"User exists in the database","Please Login",JOptionPane.WARNING_MESSAGE);
+                        }else{
+                            User registeredUser= new User();
+                            registeredUser.name=userName;
+                            registeredUser.email=email;
+                            registeredUser.phone=phone;
+                            registeredUser.country=country;
+                            registeredUser.street=street;
+                            registeredUser.pincode=pincode;
+                            boolean added=processor.addUser(registeredUser);
+                            if(added){
+                                JOptionPane.showMessageDialog(null,"Thank you for Registration","Successful",JOptionPane.INFORMATION_MESSAGE);
+                                registrationPage.dispose();
+                                ShopPage productsPage= new ShopPage();
+                                productsPage.init();
+                            }
+
+                        }
+
+                    }catch (NullPointerException | SQLException ns){
+                        JOptionPane.showMessageDialog(null,"Something Went Wrong","Error 404",JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
             }
         });
 
@@ -86,4 +120,33 @@ public class RegistrationPage extends ScreenStage {
         registrationPage.setVisible(true);
 
     }
+
+    private String checkField(String name, String field){
+        if(name==null || name.isEmpty() || name.isBlank()){
+            JOptionPane.showMessageDialog(null,String.format("Please Enter a Valid %s",field),"Field Error",JOptionPane.ERROR_MESSAGE);
+            return null;
+        }else{
+            boolean match;
+            switch (field.toUpperCase()){
+                case "EMAIL":
+                    match=name.matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                            + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
+                    return match? name:null;
+                case "PHONE":
+                    match=name.matches("(\\+49)?( )?[0-9]{10,}");
+                    return match? name:null;
+                case "COUNTRY":
+                    match=name.matches("[a-zA-Z]+");
+                    return match? name:null;
+                case "PINCODE":
+                    match=name.matches("[0-9]{5}");
+                    return match? name:null;
+                default:
+                    return name;
+
+            }
+        }
+    }
+
+
 }

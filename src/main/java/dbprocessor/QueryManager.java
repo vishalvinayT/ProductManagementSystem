@@ -134,12 +134,14 @@ public class QueryManager extends QueryBuilder{
 
 
     // todo: can add password field in future
-    public void insertUserData(User user) throws SQLException{
+    public boolean insertUserData(User user) throws SQLException{
         if(user!=null){
             Integer userID=generateUniqueId(user.email);
             Object[] userData= new Object[]{userID,user.name,user.email,user.phone,user.country,user.street,user.pincode};
             insertData(insertUsers,userData);
+            return true;
         }
+        return false;
     }
 
     public void insertOrder(User user, Order order, List<Shipment> shipments) throws SQLException{

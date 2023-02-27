@@ -1,17 +1,19 @@
 package dbprocessor;
 
 import com.google.gson.*;
-import dbtables.ProductData;
-import dbtables.User;
-import dbtables.WareHouseData;
+import dataextractor.Utilities;
+import dbtables.*;
+import org.jsoup.select.CombiningEvaluator;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Date;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -65,12 +67,77 @@ public class DataProcessor {
     }
 
     public User checkUser(String user) throws SQLException {
-        if(user!=null){
+        if(user!=null && !user.isEmpty() && !user.isBlank() ){
             User extractedUser= queryManager.extractUSer(user);
             return extractedUser;
         }
         throw new NullPointerException();
 
+    }
+
+
+    public boolean addUser(User user) throws  SQLException{
+        if(user!=null){
+            return queryManager.insertUserData(user);
+        }
+        return false;
+    }
+
+    public boolean addOrder(User user, Map<ProductData,Integer> cartItems){
+        if(user!=null && cartItems!=null){
+            try {
+                Order order=generateOrder(user,cartItems);
+                if(order!=null){
+                    List<Shipment> shipments=fetchShipments(user, order,cartItems);
+                }
+            }catch (SQLException | NullPointerException e){
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private List<Shipment> fetchShipments(User user, Order order, Map<ProductData, Integer> cartItems){
+        if(user!=null && order!=null && cartItems!=null){
+            List<Shipment> shipments=new LinkedList<>();
+            for(Map.Entry<ProductData,Integer> entry: cartItems.entrySet()){
+                Shipment shipment= new Shipment();
+                ProductData productData=entry.getKey();
+            }
+        }
+        throw  new NullPointerException();
+    }
+
+    private Order generateOrder(User user, Map<ProductData,Integer> cartItems) throws SQLException{
+        if(user!=null && cartItems!=null){
+            Order order= new Order();
+            User generatedUser=queryManager.extractUSer(user.email);
+            try{
+                if(generatedUser!=null){
+                    order.userId=generatedUser.id;
+                    order.orderDate= Utilities.formatter.format(new Date());
+                    order.totalOrderPrice=calculateOrderValue(cartItems);
+                    return order;
+                }
+
+            }catch (NullPointerException e){
+                return null;
+            }
+
+        }
+        return null;
+    }
+
+    private Double calculateOrderValue(Map<ProductData, Integer> cartItems){
+        if(cartItems!=null){
+            Double totalPrice=0.0;
+            for(Map.Entry<ProductData,Integer> entry: cartItems.entrySet()){
+                Double price=entry.getKey().productPrice * entry.getValue();
+                totalPrice+=price;
+            }
+            return totalPrice;
+        }
+        throw new NullPointerException();
     }
 
     public List<ProductData> fetchProductData(){

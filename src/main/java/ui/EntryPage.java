@@ -1,5 +1,7 @@
 package ui;
 
+import dbtables.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -29,11 +31,19 @@ public class EntryPage extends ScreenStage{
             public void actionPerformed(ActionEvent e) {
                 String user=username.getText();
                 try {
-                    processor.checkUser(user);
+                    User entryUser=processor.checkUser(user);
+                    if(entryUser!=null){
+                        UI.user=entryUser;
+                        entryFrame.dispose();
+                        ShopPage shopPage=new ShopPage();
+                        shopPage.init();
+                    }else{
+                        JOptionPane.showMessageDialog(null,"PLease Register","User Not Exists",JOptionPane.ERROR_MESSAGE);
+                    }
                 }catch (NullPointerException ne){
-                    entryFrame.add(errorPanel());
+                    JOptionPane.showMessageDialog(null,"Please Enter a Valid Username or Email","Invalid Login",JOptionPane.ERROR_MESSAGE);
                 }catch (SQLException se){
-
+                    entryFrame.add(errorPanel());
                 }
 
             }

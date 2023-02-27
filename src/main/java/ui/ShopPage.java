@@ -16,12 +16,15 @@ import java.util.List;
 public class ShopPage extends ScreenStage {
     private JFrame productsFrame= new JFrame();
 
-    List<ProductData> productsList;
+    private List<ProductData> productsList;
 
+    //     private JProgressBar progressBar=new JProgressBar(0,100);
     private  boolean error=false;
     @Override
     public void init(){
         productsList= processor.fetchProductData();
+
+
         //this.error=productsList==null;
         setProductsPage();
         back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -44,14 +47,13 @@ public class ShopPage extends ScreenStage {
                 registrationPage.init();
             }
         });
-
-
     }
 
     //fixme: the magic numbers of sizes can be done according to screen dpi? better to develop an algo that decides the int value to divide
     private void setProductsPage()  {
         resetFrame(productsFrame);
         productsFrame.setLayout(new BorderLayout());
+
         //fixme: adding head panel code can be improved
         productsFrame.add(headPanel(AddEnum.ADD_ALL, back,  cart),BorderLayout.NORTH);
         if(error){
@@ -59,12 +61,17 @@ public class ShopPage extends ScreenStage {
         }else{
             JPanel basePanel= new JPanel();
             basePanel.setBackground(getBackground());
-            int cols=5;
+            productsFrame.setVisible(true);
+            int progressPerIteration= (int) Math.ceil((double) productsList.size()/ 100);
+            //progressBar.setStringPainted(true);
+            //progressBar.setVisible(true);
+            int cols=5;//magic number
             int rows=productsList.size()/cols;
             basePanel.setLayout(new GridLayout(rows,cols));
             basePanel.setAutoscrolls(true);
-            productsFrame.setVisible(true);
             int counter=0;
+            int percentageCounter=0;
+            //productsFrame.add(progressBar,BorderLayout.SOUTH);
             for(int i=0;i<rows;i++){
                 for(int j=0;j<cols;j++){
                     try {
@@ -82,10 +89,8 @@ public class ShopPage extends ScreenStage {
                         c.anchor=GridBagConstraints.CENTER;
                         BufferedImage img = readImage(productData.productImageData);
                         Image pic=img.getScaledInstance(screenWidth/10,screenHeight/5,Image.SCALE_DEFAULT); //magic numbers
-
                         JLabel label=new JLabel(new ImageIcon(pic));
                         subPanel.add(label,c);
-
                         c.gridx=0;
                         c.gridy=2;
                         c.gridwidth=1;
@@ -115,15 +120,21 @@ public class ShopPage extends ScreenStage {
                         });
                         basePanel.add(subPanel,i,j);
                         counter++;
+                        /*if(counter%progressPerIteration==0){
+                            percentageCounter++;
+                        } else if (counter==productsList.size()) {
+                            percentageCounter=100;
 
+                        }
+                        progressBar.setValue(percentageCounter);
+*/
                     }catch (IOException e){
                         continue;
                     }
                 }
             }
             basePanel.setBackground(getBackground());
-            productsFrame.add(new JScrollPane(basePanel),BorderLayout.CENTER); //Note
-
+            productsFrame.add(new JScrollPane(basePanel),BorderLayout.CENTER);//Note
         }
 
     }
