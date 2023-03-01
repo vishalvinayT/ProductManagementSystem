@@ -20,8 +20,8 @@ public abstract class ScreenStage  {
     private  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     private final ImageIcon logo= new ImageIcon("./icons/logo.png");
-    protected final JButton back= new JButton("Back");
-    protected final JButton cart= new JButton("Cart");
+    protected JButton back= new JButton();
+    protected JButton cart= new JButton();
     private Color defaultBackgroundColor= new Color(0xCCED00);
 
     protected DataProcessor processor= new DataProcessor();
@@ -68,6 +68,16 @@ public abstract class ScreenStage  {
         heading.setFont(headingFont);
         heading.setHorizontalAlignment(SwingConstants.CENTER); // note
         main.add(heading,BorderLayout.CENTER);
+        buttonTransparent(this.back);
+        buttonTransparent(this.cart);
+        ImageIcon backIcon= new ImageIcon("./icons/back.png");
+        ImageIcon cartIcon= new ImageIcon("./icons/cart.png");
+        Image backImg=backIcon.getImage().getScaledInstance(backIcon.getIconWidth()/15,backIcon.getIconHeight()/15,Image.SCALE_SMOOTH);
+        Image cartImg= cartIcon.getImage().getScaledInstance(backIcon.getIconWidth()/15,backIcon.getIconHeight()/15,Image.SCALE_SMOOTH);
+        this.back.setIcon(new ImageIcon(backImg));
+        this.cart.setIcon(new ImageIcon(cartImg));
+        this.back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        this.cart.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         switch (ignoreCase){
             case ADD_ALL:
                 if(cart!=null && back!=null){

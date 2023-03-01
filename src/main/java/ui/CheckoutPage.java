@@ -11,7 +11,6 @@ import java.util.Map;
 public class CheckoutPage extends ScreenStage{
     private JFrame checkoutFrame= new JFrame();
 
-    private JButton back= new JButton("Back");
     private JButton checkoutButton= new JButton("Checkout");
 
     private Double totalPrice=0.0;
@@ -26,6 +25,7 @@ public class CheckoutPage extends ScreenStage{
             back.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    checkoutFrame.dispose();
                     ShopPage page= new ShopPage();
                     page.init();
                 }
@@ -34,9 +34,14 @@ public class CheckoutPage extends ScreenStage{
             checkoutButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    checkoutFrame.dispose();
-                    FinalPage finalPage= new FinalPage();
-                    finalPage.init();
+                    boolean addedOrder=processor.addOrder(user,cartList);
+                    if(addedOrder){
+                        checkoutFrame.dispose();
+                        FinalPage finalPage= new FinalPage();
+                        finalPage.init();
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Something Went Wrong","Technical Error",JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             });
 
@@ -63,10 +68,10 @@ public class CheckoutPage extends ScreenStage{
         address.setLayout(new BoxLayout(address,BoxLayout.Y_AXIS));
         JLabel shippingAddress=new JLabel("Shipping Address");
         shippingAddress.setFont(subheadingFont);
-        JLabel userName=new JLabel("user.name");
-        JLabel userStreet=new JLabel("user.street");
-        JLabel userCountry=new JLabel("user.pincode"+" "+"user.country");
-        JLabel userPhone= new JLabel("user.phone");
+        JLabel userName=new JLabel(user.name);
+        JLabel userStreet=new JLabel(user.street);
+        JLabel userCountry=new JLabel(user.pincode+" "+user.country);
+        JLabel userPhone= new JLabel(user.phone);
         address.add(shippingAddress);
         address.add(userName);
         address.add(userStreet);

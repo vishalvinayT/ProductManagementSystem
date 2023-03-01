@@ -23,6 +23,7 @@ public class ShopPage extends ScreenStage {
     @Override
     public void init(){
         productsList= processor.fetchProductData();
+        back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 
         //this.error=productsList==null;
@@ -43,8 +44,11 @@ public class ShopPage extends ScreenStage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 productsFrame.dispose();
-                RegistrationPage registrationPage= new RegistrationPage();
-                registrationPage.init();
+                if(user.id!=null){
+                    EntryPage entryPage=new EntryPage();
+                    entryPage.init();
+                    JOptionPane.showMessageDialog(null,"Please Login Again","Logged Out",JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
     }

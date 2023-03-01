@@ -3,7 +3,6 @@ package dbprocessor;
 import com.google.gson.*;
 import dataextractor.Utilities;
 import dbtables.*;
-import org.jsoup.select.CombiningEvaluator;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -68,7 +67,7 @@ public class DataProcessor {
 
     public User checkUser(String user) throws SQLException {
         if(user!=null && !user.isEmpty() && !user.isBlank() ){
-            User extractedUser= queryManager.extractUSer(user);
+            User extractedUser= queryManager.extractUser(user);
             return extractedUser;
         }
         throw new NullPointerException();
@@ -89,6 +88,8 @@ public class DataProcessor {
                 Order order=generateOrder(user,cartItems);
                 if(order!=null){
                     List<Shipment> shipments=fetchShipments(user, order,cartItems);
+                    queryManager.insertOrder(user,order,shipments);
+                    return true;
                 }
             }catch (SQLException | NullPointerException e){
                 return false;
@@ -103,7 +104,15 @@ public class DataProcessor {
             for(Map.Entry<ProductData,Integer> entry: cartItems.entrySet()){
                 Shipment shipment= new Shipment();
                 ProductData productData=entry.getKey();
+                shipment.userID=user.id;
+                shipment.quantityOrdered=entry.getValue();
+                shipment.pricePerUnit=productData.productPrice;
+                shipment.productId=productData.productId;
+                shipment.totalPrice=entry.getValue()*productData.productPrice;
+                shipment.dateOfOrder=order.orderDate;
+                shipments.add(shipment);
             }
+            return shipments;
         }
         throw  new NullPointerException();
     }
@@ -111,7 +120,7 @@ public class DataProcessor {
     private Order generateOrder(User user, Map<ProductData,Integer> cartItems) throws SQLException{
         if(user!=null && cartItems!=null){
             Order order= new Order();
-            User generatedUser=queryManager.extractUSer(user.email);
+            User generatedUser=queryManager.extractUser(user.email);
             try{
                 if(generatedUser!=null){
                     order.userId=generatedUser.id;

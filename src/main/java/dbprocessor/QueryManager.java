@@ -146,23 +146,23 @@ public class QueryManager extends QueryBuilder{
 
     public void insertOrder(User user, Order order, List<Shipment> shipments) throws SQLException{
         if(user!=null && shipments!=null && order!=null){
-            PreparedStatement statement= connection.prepareStatement("select id from users where email= ?");
-            statement.setString(1,user.email);
-            ResultSet set=statement.executeQuery();
-            Integer userID=set.getInt(1);
+            Integer userID=user.id;
             if(userID!=null){
+                connection.setAutoCommit(false);
                 String uniqueString=(order.orderDate+order.totalOrderPrice+user.email).replaceAll("[.-/]","");
                 Integer orderID=generateUniqueId(uniqueString);
+                Object[] orderData= new Object[]{orderID,convertStringDate(order.orderDate), userID,order.totalOrderPrice};
+                insertData(insertOrders,orderData);
                 for(Shipment shipment:shipments){
                     if(shipment!=null){
                         insertShipment(userID,orderID,shipment);
                     }
                 }
-                Object[] orderData= new Object[]{orderID,order.orderDate,order.totalOrderPrice};
-                insertData(insertOrders,orderData);
+                connection.commit();
+                connection.setAutoCommit(true);
                 return;
             }
-            System.out.println("Please Register!");
+            throw new NullPointerException();
         }
     }
 
@@ -172,15 +172,15 @@ public class QueryManager extends QueryBuilder{
             if(userID==shipment.userID){
                 String uniqueString=(shipment.productId+shipment.userID+shipment.dateOfOrder).replaceAll("[.-/]","");
                 Integer shipmentID=generateUniqueId(uniqueString);
-                Object[] shipmentsData=new Object[]{shipmentID,shipment.productId,orderID,shipment.userID,shipment.quantityOrdered,shipment.dateOfOrder,shipment.pricePerUnit,shipment.totalPrice};
+                Object[] shipmentsData=new Object[]{shipmentID,shipment.productId,orderID,shipment.userID,shipment.quantityOrdered,convertStringDate(shipment.dateOfOrder),shipment.pricePerUnit,shipment.totalPrice};
                 insertData(insertShipments,shipmentsData);
                 return;
             }
-            throw new RuntimeException();
+            throw new NullPointerException();
 
         }
     }
-    protected User extractUSer(String user) throws SQLException{
+    protected User extractUser(String user) throws SQLException{
         extractUserData.setString(1,user);
         extractUserData.setString(2,user);
         ResultSet set=extractData(extractUserData);
@@ -206,6 +206,8 @@ public class QueryManager extends QueryBuilder{
             productsList.add(productData);
         }
     }
+
+
 
 
     private String strCoverter(Object object){
