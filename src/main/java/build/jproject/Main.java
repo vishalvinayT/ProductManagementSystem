@@ -21,8 +21,8 @@ public class Main  {
             }
             UI ui= new UI();
             ui.displayEntryPage();
-
         }catch (Exception e){
+            e.printStackTrace();
             System.out.println("Failure");
         }
 

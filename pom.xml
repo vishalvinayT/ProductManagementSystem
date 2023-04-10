@@ -7,7 +7,7 @@
     <groupId>build.jproject</groupId>
     <artifactId>ProductManagementSystem</artifactId>
     <packaging>jar</packaging>
-    <version>App_1.0</version>
+    <version>App_1.0.2</version>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -96,6 +96,21 @@
         </dependency>
     </dependencies>
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>./configs</directory>
+            </resource>
+            <resource>
+                <directory>./resources</directory>
+            </resource>
+            <resource>
+                <directory>./icons</directory>
+            </resource>
+
+        </resources>
         <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -154,8 +169,6 @@
                 </executions>
             </plugin>
         </plugins>
-
     </build>
-
 
 </project>

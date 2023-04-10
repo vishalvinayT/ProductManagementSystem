@@ -14,7 +14,7 @@ import java.util.Map;
 // This is a Utility class for this package all filters and defaults  are stored here
 
 public class Utilities {
-    public static final Config config = ConfigFactory.parseFile(new File("scrapeConfig.json"));
+    public static final Config config = ConfigFactory.parseFile(new File("./configs/scrapeConfig.json"));
     public static final String DEFAULT_COMPANY="Warehouse-56697368616c";
     public static final String DEFAULT_COUNTRY="Germany";
     public static final Double DEFAULT_PRICE=1.00;

@@ -1,0 +1,62 @@
+{
+  "URL":"https://www.goflink.com/en-DE/shop/",
+  "buffer": 3,
+  "productHref":{
+    "originalKey": null,
+    "filterBy": "class",
+    "filterKey":"title line-clamp-2",
+    "parseKey": "title line-clamp-2",
+    "subInformation": null
+  },
+  "productName": {
+    "originalKey": "productName",
+    "filterBy": "class",
+    "filterKey": "heading-2 mb-4",
+    "parseKey": "heading-2 mb-4",
+    "subInformation": null
+  },
+  "productPrice":{
+    "originalKey": "productPrice",
+    "filterBy": "class",
+    "filterKey": "price-tag",
+    "parseKey": "price-tag",
+    "subInformation": null
+  },
+  "productInformation": {
+    "originalKey": "productInformation",
+    "filterBy": "tag",
+    "filterKey": "dl",
+    "parseKey": "Produktinformation",
+    "subInformation": {
+      "keys": {
+        "filterBy": "tag",
+        "filterKey": "dt"
+      },
+      "values": {
+        "filterBy": "tag",
+        "filterKey": "dd"
+      },
+      "address": {
+        "originalKey": "address",
+        "filterBy": null,
+        "filterKey": null,
+        "parseKey": "Hersteller"
+      },
+      "handelklasse": {
+        "originalKey": "handelklasse",
+        "filterBy": null,
+        "filterKey": null,
+        "parseKey": "Handelsklasse"
+      }
+    }
+  },
+  "productImage": {
+    "parentFilterBy": "class",
+    "parentFilterKey": "content container",
+    "originalKey": "productImage",
+    "filterBy": "tag",
+    "filterKey": "img",
+    "parseKey": "productImage",
+    "subInformation": null
+  }
+}

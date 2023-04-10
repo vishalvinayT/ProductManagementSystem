@@ -43,7 +43,7 @@ public class DataProcessor {
 
     public void read() throws IOException{
         JsonParser parser=new JsonParser();
-        String json =parser.parse(new BufferedReader(new FileReader("output_data.json"))).toString();
+        String json =parser.parse(new BufferedReader(new FileReader("./configs/output_data.json"))).toString();
         JsonObject jsonObject = parserJson.fromJson(json, JsonObject.class);
         JsonObject warehouseObject=jsonObject.getAsJsonObject(WAREHOUSEDATA_KEY);
         JsonArray jsonArray = jsonObject.getAsJsonArray(PRODUCTDATA_KEY);

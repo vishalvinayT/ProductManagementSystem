@@ -88,7 +88,7 @@ public class DataInjector {
 
 
     private void exposeJsonObject(List<ProductData> productDataList) throws IOException{
-        BufferedWriter file= new BufferedWriter(new FileWriter("./output_data.json"));
+        BufferedWriter file= new BufferedWriter(new FileWriter("./configs/output_data.json"));
         Gson gson=new GsonBuilder().setPrettyPrinting().create();
         gson.toJson(productDataList,file);
         file.flush();

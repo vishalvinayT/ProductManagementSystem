@@ -16,7 +16,9 @@ import java.util.Date;
 
 public class QueryManager extends QueryBuilder{
 
-    private Config config= ConfigFactory.parseFile(new File("./dbConfig.json"));
+    //private Config config= ConfigFactory.parseFile(new File("./configs/dbConfig.json"));
+
+    private Config config= ConfigFactory.load("dbConfig.json");
     public static Connection connection;
     private final String DRIVER=config.getString("driver");
     private final String HOST= config.getString("host");
